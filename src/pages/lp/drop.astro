@@ -488,12 +488,23 @@ const SUPABASE_URL = 'https://tpqipscwaovlujxolfal.supabase.co';
       }
 
       try {
-        var res = await fetch(API + '/ingest-lead', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        var json = await res.json();
+        // D-404/D-405 (10/6): our intake only (leadgen.web_submissions → alert to contact@); Cody's ingest-lead retired for this form.
+        var json;
+        if (window.pvLooksLikeBot && window.pvLooksLikeBot()) {
+          json = { ok: true };   // bot: quiet fake success, nothing stored
+        } else if (!window.pvIntake) {
+          json = { ok: false, error: 'Submission failed — please try again' };
+        } else {
+          var r = await window.pvIntake({
+            form_type: 'drop', source: 'foxflyer',
+            business_name: payload.business_name, phone: payload.phone || '', email: payload.email || '',
+            first_name: payload.first_name || '', last_name: payload.last_name || '', title: payload.title || '',
+            address: payload.address || '', city: payload.city || '', promo_code: payload.promo_code || '',
+            extra: { mobile: payload.mobile, website: payload.website, current_solution: payload.current_solution,
+                     google_place_id: payload.google_place_id, state: payload.state || null, zip: payload.zip || null }
+          });
+          json = (r && r.ok) ? { ok: true } : { ok: false, error: 'Submission failed — please try again' };
+        }
 
         if (json.ok) {
           form.classList.add('hidden');

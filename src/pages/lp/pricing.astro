@@ -985,8 +985,6 @@ import '../../styles/global.css'
       scorePricingCompletion();
     });
 
-    var SUPABASE_URL = 'https://tpqipscwaovlujxolfal.supabase.co';
-
     function scorePricingCompletion() {
       try {
         var isTP = state.payment === 'timePurchase';
@@ -1012,12 +1010,14 @@ import '../../styles/global.css'
         };
 
         // Only send if we have some identifying info
-        if (payload.email || payload.phone) {
-          fetch(SUPABASE_URL + '/functions/v1/score-pricing-tool', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          }).catch(function(e) { console.error('score-pricing-tool failed:', e); });
+        // D-404/D-405 (10/6): our intake only (leadgen.web_submissions → alert to contact@); Cody's score-pricing-tool retired for this form.
+        if ((payload.email || payload.phone) && window.pvIntake && !(window.pvLooksLikeBot && window.pvLooksLikeBot())) {
+          var nm = String(payload.contact_name || '').trim().split(/\s+/);
+          window.pvIntake({ form_type: 'contact', source: 'pricing_tool',
+            business_name: payload.company || '(pricing tool, no company)',
+            first_name: nm[0] || '', last_name: nm.slice(1).join(' '),
+            email: payload.email || '', phone: payload.phone || '',
+            extra: { pricing_data: payload.pricing_data } });
         }
       } catch (e) {
         console.error('scorePricingCompletion error:', e);
