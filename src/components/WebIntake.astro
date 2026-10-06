@@ -34,6 +34,26 @@
         .catch(function () { return { ok: false }; });
     } catch (e) { return Promise.resolve({ ok: false }); }
   };
+  // D-404/405 cutover: forms call pvLead(payload) instead of Cody's ingest-lead. Same field mapping as the old copy.
+  window.pvLead = function (b) {
+    try {
+      if (window.pvLooksLikeBot && window.pvLooksLikeBot()) return Promise.resolve({ ok: true });   // bot: quiet fake success
+      var p = {}, extra = {};
+      Object.keys(b || {}).forEach(function (k) {
+        var v = b[k];
+        if (KNOWN.indexOf(k) !== -1) p[k] = v;
+        else if (k === 'rep_code' || k === 'promo_code') { if (v && !p.promo_code) p.promo_code = String(v).trim().toUpperCase(); }
+        else if (typeof v === 'string' && v.length > 500) extra[k + '_attached'] = true;
+        else if (v !== null && v !== undefined && v !== '') extra[k] = v;
+      });
+      if (b && b.source === 'referral') p.form_type = 'referral';
+      if (['contact','referral','support','drop','flyer'].indexOf(p.form_type) === -1) p.form_type = 'contact';
+      p.extra = extra;
+      return window.pvIntake(p).then(function (r) {
+        return (r && r.ok) ? { ok: true } : { ok: false, error: 'Something went wrong. Please try again, call us at (888) 534-0117, or email contact@purevidawater.com.' };
+      });
+    } catch (e) { return Promise.resolve({ ok: false, error: 'Something went wrong. Please try again, call us at (888) 534-0117, or email contact@purevidawater.com.' }); }
+  };
   var KNOWN = ['form_type','source','business_name','first_name','last_name','email','phone','city','branch','address','title','referrer_name','referrer_email','referrer_phone'];
   window.fetch = function (input, init) {
     try {

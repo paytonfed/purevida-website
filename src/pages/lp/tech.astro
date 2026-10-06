@@ -1,5 +1,6 @@
 ---
 import WebIntake from '../../components/WebIntake.astro';
+import PlacesNew from '../../components/PlacesNew.astro';
 import SpamGuard from '../../components/SpamGuard.astro';
 // Tech Drop Form: Service technician field team
 // Standalone page — mobile-first, no shared Layout
@@ -12,6 +13,7 @@ const SUPABASE_URL = 'https://tpqipscwaovlujxolfal.supabase.co';
 <html lang="en">
 <head>
   <WebIntake />
+  <PlacesNew />
   <SpamGuard />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -250,20 +252,8 @@ const SUPABASE_URL = 'https://tpqipscwaovlujxolfal.supabase.co';
     async function initAutocomplete() {
       try { await google.maps.importLibrary('places'); } catch(e) { return; }
       var companyInput = document.getElementById('company');
-      var autocomplete = new google.maps.places.Autocomplete(companyInput, {
-        componentRestrictions: { country: 'us' },
-        types: ['establishment'],
-        fields: ['address_components', 'formatted_address', 'formatted_phone_number', 'place_id', 'name', 'website'],
-      });
-
-      // Bias toward Texas
-      autocomplete.setBounds(new google.maps.LatLngBounds(
-        { lat: 25.8, lng: -106.6 },
-        { lat: 36.5, lng: -93.5 }
-      ));
-
-      autocomplete.addListener('place_changed', function() {
-        var place = autocomplete.getPlace();
+      // D-410: Places API (New) via our own dropdown (PlacesNew.astro)
+      window.pvAttachPlaces(companyInput, function(place) {
         if (!place) return;
 
         placeData = {};
@@ -439,12 +429,8 @@ const SUPABASE_URL = 'https://tpqipscwaovlujxolfal.supabase.co';
       }
 
       try {
-        var res = await fetch(API + '/ingest-lead', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        var json = await res.json();
+        // D-404/405 (10/7): our intake only; Cody's ingest-lead retired for this form.
+        var json = await window.pvLead(payload);
 
         if (json.ok) {
           form.classList.add('hidden');

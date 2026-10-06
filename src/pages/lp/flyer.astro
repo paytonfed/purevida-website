@@ -1,5 +1,6 @@
 ---
 import WebIntake from '../../components/WebIntake.astro';
+import PlacesNew from '../../components/PlacesNew.astro';
 import SpamGuard from '../../components/SpamGuard.astro';
 // Landing Page: QR Code Flyer Campaign – Tap-Tap-Done Micro Funnel
 // Standalone page — no shared Layout, no nav, no footer links
@@ -13,6 +14,7 @@ const SUPABASE_URL = 'https://tpqipscwaovlujxolfal.supabase.co';
 <html lang="en">
 <head>
   <WebIntake />
+  <PlacesNew />
   <SpamGuard />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -391,19 +393,8 @@ const SUPABASE_URL = 'https://tpqipscwaovlujxolfal.supabase.co';
     async function initAutocomplete() {
       try { await google.maps.importLibrary('places'); } catch(e) { return; }
       var addressInput = document.getElementById('inp-address');
-      var autocomplete = new google.maps.places.Autocomplete(addressInput, {
-        componentRestrictions: { country: 'us' },
-        types: ['address'],
-        fields: ['address_components', 'formatted_address', 'place_id'],
-      });
-
-      autocomplete.setBounds(new google.maps.LatLngBounds(
-        { lat: 25.8, lng: -106.6 },
-        { lat: 36.5, lng: -93.5 }
-      ));
-
-      autocomplete.addListener('place_changed', function() {
-        var place = autocomplete.getPlace();
+      // D-410: Places API (New) via our own dropdown (PlacesNew.astro)
+      window.pvAttachPlaces(addressInput, function(place) {
         if (!place) return;
 
         placeData = {};

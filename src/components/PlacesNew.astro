@@ -1,0 +1,75 @@
+---
+// PlacesNew: address / business autocomplete on our own <input>, using Places API (New).
+// D-410 (10/6-7): Google no longer lets new projects use the legacy places.Autocomplete widget.
+// Usage: window.pvAttachPlaces(inputEl, function (place) { ... }) where place has the legacy shape
+// { name, formatted_address, address_components:[{long_name, short_name, types}], formatted_phone_number, website, place_id }.
+---
+<style is:global>
+  .pv-pac { position:absolute; z-index:9999; background:#fff; border:1px solid #d1d5db; border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.12); max-height:280px; overflow-y:auto; font-size:14px; }
+  .pv-pac div { padding:10px 12px; cursor:pointer; line-height:1.3; }
+  .pv-pac div:hover, .pv-pac div.on { background:#EEF5FB; }
+  .pv-pac small { color:#6B7280; display:block; }
+</style>
+<script is:inline>
+(function () {
+  var TX = { south: 25.8, west: -106.6, north: 36.5, east: -93.5 };
+  window.pvAttachPlaces = async function (input, onPlace) {
+    var lib;
+    try { lib = await google.maps.importLibrary('places'); } catch (e) { return; }
+    if (!lib || !lib.AutocompleteSuggestion) return;
+    var token = new lib.AutocompleteSessionToken();
+    var box = document.createElement('div'); box.className = 'pv-pac'; box.style.display = 'none';
+    document.body.appendChild(box);
+    var timer = null, items = [], active = -1;
+    function place() { var r = input.getBoundingClientRect(); box.style.left = (r.left + window.scrollX) + 'px'; box.style.top = (r.bottom + window.scrollY + 4) + 'px'; box.style.width = r.width + 'px'; }
+    function hide() { box.style.display = 'none'; active = -1; }
+    function render() {
+      box.innerHTML = '';
+      items.forEach(function (s, i) {
+        var p = s.placePrediction; if (!p) return;
+        var d = document.createElement('div');
+        var main = p.mainText ? p.mainText.text : p.text.text, sec = p.secondaryText ? p.secondaryText.text : '';
+        d.textContent = main; if (sec) { var sm = document.createElement('small'); sm.textContent = sec; d.appendChild(sm); }
+        d.addEventListener('mousedown', function (ev) { ev.preventDefault(); choose(i); });
+        box.appendChild(d);
+      });
+      if (box.children.length) { place(); box.style.display = 'block'; } else hide();
+    }
+    async function choose(i) {
+      var p = items[i] && items[i].placePrediction; hide(); if (!p) return;
+      try {
+        var pl = p.toPlace();
+        await pl.fetchFields({ fields: ['displayName', 'formattedAddress', 'addressComponents', 'nationalPhoneNumber', 'websiteURI', 'id'] });
+        token = new lib.AutocompleteSessionToken();
+        onPlace({
+          name: pl.displayName || '', formatted_address: pl.formattedAddress || '', place_id: pl.id || '',
+          formatted_phone_number: pl.nationalPhoneNumber || '', website: pl.websiteURI || '',
+          address_components: (pl.addressComponents || []).map(function (c) { return { long_name: c.longText, short_name: c.shortText, types: c.types }; })
+        });
+      } catch (e) {}
+    }
+    input.setAttribute('autocomplete', 'off');
+    input.addEventListener('input', function () {
+      clearTimeout(timer);
+      var q = input.value.trim(); if (q.length < 3) { hide(); return; }
+      timer = setTimeout(async function () {
+        try {
+          var r = await lib.AutocompleteSuggestion.fetchAutocompleteSuggestions({ input: q, sessionToken: token, includedRegionCodes: ['us'], locationBias: TX });
+          items = (r && r.suggestions) || []; active = -1; render();
+        } catch (e) { hide(); }
+      }, 250);
+    });
+    input.addEventListener('keydown', function (e) {
+      if (box.style.display === 'none') return;
+      var n = box.children.length;
+      if (e.key === 'ArrowDown') { active = (active + 1) % n; e.preventDefault(); }
+      else if (e.key === 'ArrowUp') { active = (active - 1 + n) % n; e.preventDefault(); }
+      else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); choose(active); return; }
+      else if (e.key === 'Escape') { hide(); return; }
+      [].forEach.call(box.children, function (c, i) { c.classList.toggle('on', i === active); });
+    });
+    input.addEventListener('blur', function () { setTimeout(hide, 150); });
+    window.addEventListener('resize', function () { if (box.style.display !== 'none') place(); });
+  };
+})();
+</script>
