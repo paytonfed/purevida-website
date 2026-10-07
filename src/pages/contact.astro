@@ -354,7 +354,7 @@ import Layout from '../layouts/Layout.astro';
       document.querySelectorAll('.lead-source').forEach(function(el) { el.value = source; });
     })();
 
-    // --- ingest-lead handlers for trial + referral forms ---
+    // --- trial + referral forms → our intake (pvLead, cutover 4) ---
     const SUPABASE_URL = 'https://tpqipscwaovlujxolfal.supabase.co';
 
     async function submitToIngestLead(form, payloadBuilder) {
@@ -366,11 +366,8 @@ import Layout from '../layouts/Layout.astro';
       try {
         const fd = new FormData(form);
         const payload = payloadBuilder(fd);
-        const res = await fetch(`${SUPABASE_URL}/functions/v1/ingest-lead`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
+        // D-404/405 (cutover 4): our intake only; Cody's ingest-lead retired for this form.
+        const res = await window.pvLead(payload);
 
         if (res.ok) {
           window.showToast('Request sent! PureVida will reach out shortly.', true);

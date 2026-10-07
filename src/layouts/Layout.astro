@@ -376,7 +376,7 @@ const canonical = canonicalUrl || new URL(Astro.url.pathname, Astro.site || site
         });
       });
 
-      // Trial modal form → ingest-lead
+      // Trial modal form → our intake (pvLead, cutover 4)
       const SUPABASE_URL = 'https://tpqipscwaovlujxolfal.supabase.co';
       const trialModalForm = document.getElementById('trial-modal-form');
       trialModalForm?.addEventListener('submit', async (e) => {
@@ -408,11 +408,8 @@ const canonical = canonicalUrl || new URL(Astro.url.pathname, Astro.site || site
             branch: getBranch(cityVal),
           };
 
-          const res = await fetch(`${SUPABASE_URL}/functions/v1/ingest-lead`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          });
+          // D-404/405 (cutover 4): our intake only; Cody's ingest-lead retired for this form.
+          const res = await window.pvLead(payload);
 
           if (res.ok) {
             showToast('Request sent! PureVida will reach out shortly.', true);
