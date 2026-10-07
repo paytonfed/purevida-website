@@ -337,7 +337,7 @@ const SUPABASE_URL = 'https://tpqipscwaovlujxolfal.supabase.co';
 
         var base64Only = resized.replace(/^data:image\/\w+;base64,/, '');
 
-        var res = await fetch(API + '/scan-card', {
+        var res = await fetch('https://afgaboesfuozjhglreyg.supabase.co/functions/v1/web-scan-card', {   // D-404/410 (10/7): our own scanner; Cody's scan-card stays for the iPad app only
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ image: base64Only }),
