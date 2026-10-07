@@ -427,7 +427,7 @@ const SUPABASE_URL = 'https://tpqipscwaovlujxolfal.supabase.co';
     }
     initAutocomplete();
 
-    // ---- Form Submit → ingest-lead ----
+    // ---- Form Submit → our intake (pvLead, cutover 3) ----
     var form = document.getElementById('lead-form');
     var submitBtn = document.getElementById('submit-btn');
     var submitting = false;
@@ -477,12 +477,8 @@ const SUPABASE_URL = 'https://tpqipscwaovlujxolfal.supabase.co';
       }
 
       try {
-        var res = await fetch(API + '/ingest-lead', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        var json = await res.json();
+        // D-404/405 (10/8 cutover 3): our intake only; Cody's ingest-lead retired for this form.
+        var json = await window.pvLead(payload);
 
         if (json.ok) {
           if (typeof gtag === 'function') {
