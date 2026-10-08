@@ -28,6 +28,20 @@ const products = [
       { label: "Screen", value: "10.1\" HD touchscreen" },
       { label: "Recommended Usage", value: "Less than 30 Drinkers per System" },
     ],
+  },
+  {
+    id: "pv11c",
+    name: "PV11c",
+    subtitle: "Compact Coffee & Beverage",
+    image: "/images/products/PV11c.png",
+    featured: false,
+    specs: [
+      { label: "Form", value: "Countertop or Freestanding" },
+      { label: "Functionality", value: "Bean to Cup, Single Serve, Coffee, Chocolate, Vanilla, Milktopping" },
+      { label: "Dimensions", value: "31.5\"H (33.9\"H with bean canisters) x 14.3\"W x 20.9\"D | Optional base cabinet" },
+      { label: "Weight", value: "71 – 86 lbs." },
+      { label: "Best For", value: "Smaller breakrooms that want the same bean-to-cup coffee in a compact footprint" },
+    ],
   }
 ];
 ---
@@ -42,7 +56,7 @@ const products = [
   <section class="bg-gradient-to-br from-sky-50 to-white py-6 lg:py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto">
-        <h1 class="text-4xl lg:text-5xl font-bold text-gray-900">Office Coffee System</h1>
+        <h1 class="text-4xl lg:text-5xl font-bold text-gray-900">Office Coffee Systems</h1>
         <p class="mt-4 text-xl text-gray-600">
           Café-quality coffee in your breakroom. Bean-to-cup freshness, zero effort.
         </p>
@@ -54,7 +68,7 @@ const products = [
   <section class="py-12 bg-white">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       {products.map((product) => (
-        <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="grid md:grid-cols-2 gap-12 items-center mb-20 last:mb-0">
           <!-- Image -->
           <div class="flex justify-center">
             <div class="w-[280px] h-[450px] flex items-center justify-center">
