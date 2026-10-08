@@ -2,6 +2,9 @@
 // Landing Page: Customer Check-In
 // Standalone page — no shared Layout
 // Route: /landing-pages/customer-checkin
+// D-410 (10/8): parallel copy to our intake as form_type 'checkin' (alert → admin@). Zoho Forms keeps working until Admin confirms.
+import WebIntake from '../../components/WebIntake.astro';
+import SpamGuard from '../../components/SpamGuard.astro';
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -845,6 +848,9 @@
   <script is:inline>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,o.onload=function(){window.trackingFunctions.onLoad({appId:"691da828d5e70a000d7a97f2"})},document.head.appendChild(o)}initApollo();</script>
 </head>
 <body>
+<WebIntake />
+<SpamGuard />
+
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHL3XGV2" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
@@ -1482,6 +1488,30 @@
     document.getElementById('zoho-autopay').value = document.getElementById('cb-autopay').checked ? 'Yes' : 'No';
     document.getElementById('zoho-additional').value = document.getElementById('cb-additional').checked ? 'Yes' : 'No';
     document.getElementById('zoho-referral').value = document.getElementById('cb-referral').checked ? 'Yes' : 'No';
+
+    // D-410 parallel copy → our intake (form_type checkin → admin@). Never blocks the Zoho submit.
+    try {
+      if (window.pvIntake && !(window.pvLooksLikeBot && window.pvLooksLikeBot())) {
+        var firstEmail = billEmails[0] || svcEmails[0] || invEmails[0] || '';
+        var firstPhone = billPhones[0] || svcPhones[0] || '';
+        var firstName = (billNames[0] || svcNames[0] || '').split(/\s+/);
+        window.pvIntake({
+          form_type: 'checkin', source: 'customer_checkin',
+          business_name: (bizName || (sysId ? 'System ' + sysId : '(check-in, no business name)')).slice(0, 200),
+          first_name: firstName[0] || '', last_name: firstName.slice(1).join(' '),
+          email: firstEmail, phone: firstPhone, address: bizAddr.slice(0, 300),
+          extra: {
+            system_id: sysId || null,
+            service_contacts: { toggle: document.getElementById('service-toggle-value').value || null, names: svcNames, phones: svcPhones, emails: svcEmails },
+            billing_contacts: { toggle: document.getElementById('billing-toggle-value').value || null, names: billNames, phones: billPhones, emails: billEmails },
+            invoicing: { toggle: document.getElementById('invoicing-toggle-value').value || null, emails: invEmails },
+            autopay: document.getElementById('cb-autopay').checked,
+            additional_system: document.getElementById('cb-additional').checked,
+            referral_interest: document.getElementById('cb-referral').checked
+          }
+        });
+      }
+    } catch (err) {}
 
     // Show success and submit via iframe to avoid redirect
     var form = this;
