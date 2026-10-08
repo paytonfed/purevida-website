@@ -1489,44 +1489,39 @@ import SpamGuard from '../../components/SpamGuard.astro';
     document.getElementById('zoho-additional').value = document.getElementById('cb-additional').checked ? 'Yes' : 'No';
     document.getElementById('zoho-referral').value = document.getElementById('cb-referral').checked ? 'Yes' : 'No';
 
-    // D-410 parallel copy → our intake (form_type checkin → admin@). Never blocks the Zoho submit.
-    try {
-      if (window.pvIntake && !(window.pvLooksLikeBot && window.pvLooksLikeBot())) {
-        var firstEmail = billEmails[0] || svcEmails[0] || invEmails[0] || '';
-        var firstPhone = billPhones[0] || svcPhones[0] || '';
-        var firstName = (billNames[0] || svcNames[0] || '').split(/\s+/);
-        window.pvIntake({
-          form_type: 'checkin', source: 'customer_checkin',
-          business_name: (bizName || (sysId ? 'System ' + sysId : '(check-in, no business name)')).slice(0, 200),
-          first_name: firstName[0] || '', last_name: firstName.slice(1).join(' '),
-          email: firstEmail, phone: firstPhone, address: bizAddr.slice(0, 300),
-          extra: {
-            system_id: sysId || null,
-            service_contacts: { toggle: document.getElementById('service-toggle-value').value || null, names: svcNames, phones: svcPhones, emails: svcEmails },
-            billing_contacts: { toggle: document.getElementById('billing-toggle-value').value || null, names: billNames, phones: billPhones, emails: billEmails },
-            invoicing: { toggle: document.getElementById('invoicing-toggle-value').value || null, emails: invEmails },
-            autopay: document.getElementById('cb-autopay').checked,
-            additional_system: document.getElementById('cb-additional').checked,
-            referral_interest: document.getElementById('cb-referral').checked
-          }
-        });
-      }
-    } catch (err) {}
-
-    // Show success and submit via iframe to avoid redirect
+    // D-410 (Payton 10/8): our intake ONLY (form_type checkin → admin@ + Admin card). Zoho Forms is switched off.
+    e.preventDefault();
     var form = this;
-    var iframe = document.createElement('iframe');
-    iframe.name = 'zoho-submit-frame';
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-    form.target = 'zoho-submit-frame';
-
-    // Show success after a short delay
-    setTimeout(function() {
+    var btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    var firstEmail = billEmails[0] || svcEmails[0] || invEmails[0] || '';
+    var firstPhone = billPhones[0] || svcPhones[0] || '';
+    var firstName = (billNames[0] || svcNames[0] || '').split(/\s+/);
+    var done = function () {
       form.style.display = 'none';
       document.getElementById('success-msg').classList.add('show');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 1000);
+    };
+    if (window.pvLooksLikeBot && window.pvLooksLikeBot()) { done(); return; }
+    if (!window.pvIntake) { btn.disabled = false; alert('Something went wrong. Please try again, or call us at (888) 534-0117.'); return; }
+    window.pvIntake({
+      form_type: 'checkin', source: 'customer_checkin',
+      business_name: (bizName || (sysId ? 'System ' + sysId : '(check-in, no business name)')).slice(0, 200),
+      first_name: firstName[0] || '', last_name: firstName.slice(1).join(' '),
+      email: firstEmail, phone: firstPhone, address: bizAddr.slice(0, 300),
+      extra: {
+        system_id: sysId || null,
+        service_contacts: { toggle: document.getElementById('service-toggle-value').value || null, names: svcNames, phones: svcPhones, emails: svcEmails },
+        billing_contacts: { toggle: document.getElementById('billing-toggle-value').value || null, names: billNames, phones: billPhones, emails: billEmails },
+        invoicing: { toggle: document.getElementById('invoicing-toggle-value').value || null, emails: invEmails },
+        autopay: document.getElementById('cb-autopay').checked,
+        additional_system: document.getElementById('cb-additional').checked,
+        referral_interest: document.getElementById('cb-referral').checked
+      }
+    }).then(function (r) {
+      if (r && r.ok) { done(); }
+      else { btn.disabled = false; alert('Something went wrong. Please try again, or call us at (888) 534-0117.'); }
+    });
   });
 </script>
 
