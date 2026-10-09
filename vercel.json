@@ -49,6 +49,8 @@
     { "source": "/press", "destination": "/about", "statusCode": 301 },
     { "source": "/press-releases", "destination": "/about", "statusCode": 301 },
     { "source": "/pressroom", "destination": "/about", "statusCode": 301 },
+    { "source": "/jobs", "destination": "/careers", "statusCode": 301 },
+    { "source": "/portfolio-items/:path*", "destination": "/careers", "statusCode": 301 },
     { "source": "/faqs", "destination": "/", "statusCode": 301 }
   ],
   "headers": [
