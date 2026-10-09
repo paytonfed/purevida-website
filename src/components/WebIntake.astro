@@ -54,6 +54,12 @@
         headers: { 'Content-Type': 'application/json', 'apikey': KEY },
         body: JSON.stringify({ p: p }) })
         .then(function (r) { return r.ok ? r.json() : { ok: false }; })
+        .then(function (res) {
+          // Real conversion for GA4 (replaces the /contact page-view "conversion"): fire only on a saved sales submission.
+          try { if (res && res.ok && typeof window.gtag === 'function' && ['contact','referral','drop','flyer'].indexOf(p.form_type) !== -1)
+            window.gtag('event', 'generate_lead', { form_type: p.form_type, lead_source: p.source || '', channel: (p.extra.first_touch || {}).channel || '' }); } catch (e) {}
+          return res;
+        })
         .catch(function () { return { ok: false }; });
     } catch (e) { return Promise.resolve({ ok: false }); }
   };
