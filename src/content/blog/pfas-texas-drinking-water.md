@@ -1,6 +1,6 @@
 ---
-title: "PFAS in Texas Drinking Water: What Every Business Should Know"
-description: "PFAS contamination has been found in Texas water systems across Dallas, Austin, and San Antonio. Learn what PFAS are, the risks, and how to protect your workplace."
+title: "PFAS in Texas Tap Water: What Businesses Should Know"
+description: "What PFAS "forever chemicals" are, where they have turned up in Dallas, Austin and San Antonio water, and how reverse osmosis removes them at work."
 date: 2026-03-05
 author: "PureVida Water Technologies"
 category: "water-quality"

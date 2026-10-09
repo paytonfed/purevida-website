@@ -79,9 +79,9 @@
       if (['contact','referral','support','drop','flyer'].indexOf(p.form_type) === -1) p.form_type = 'contact';
       p.extra = extra;
       return window.pvIntake(p).then(function (r) {
-        return (r && r.ok) ? { ok: true } : { ok: false, error: 'Something went wrong. Please try again, call us at (888) 534-0117, or email contact@purevidawater.com.' };
+        return (r && r.ok) ? { ok: true } : { ok: false, error: 'Something went wrong. Please try again, call us at (469) 844-0470, or email contact@purevidawater.com.' };
       });
-    } catch (e) { return Promise.resolve({ ok: false, error: 'Something went wrong. Please try again, call us at (888) 534-0117, or email contact@purevidawater.com.' }); }
+    } catch (e) { return Promise.resolve({ ok: false, error: 'Something went wrong. Please try again, call us at (469) 844-0470, or email contact@purevidawater.com.' }); }
   };
   var KNOWN = ['form_type','source','business_name','first_name','last_name','email','phone','city','branch','address','title','referrer_name','referrer_email','referrer_phone'];
   window.fetch = function (input, init) {

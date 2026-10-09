@@ -92,4 +92,4 @@ For a deeper cost breakdown, check out our post on [how much a bottle-less water
 
 ## Ready to Try Bottle-less Water?
 
-Switching to PureVida is fast, simple, and easy. [Request a Free, No-Obligations Trial](/contact) or call us at **(888) 534-0117** and our team will walk you through everything from there. Whether you're in [Dallas–Fort Worth](/locations/dallas), [Austin](/locations/austin), or [San Antonio](/locations/san-antonio), we'll get you set up.
+Switching to PureVida is fast, simple, and easy. [Request a Free, No-Obligations Trial](/contact) or call us at **(469) 844-0470** and our team will walk you through everything from there. Whether you're in [Dallas–Fort Worth](/locations/dallas), [Austin](/locations/austin), or [San Antonio](/locations/san-antonio), we'll get you set up.

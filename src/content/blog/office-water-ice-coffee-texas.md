@@ -68,6 +68,6 @@ Bottle-less Water, Ice & Coffee for Texas businesses.
 
 contact@purevidawater.com
 
-(888) 534-0117
+(469) 844-0470
 
 💧 💧 💧

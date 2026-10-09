@@ -1503,7 +1503,7 @@ import SpamGuard from '../../components/SpamGuard.astro';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
     if (window.pvLooksLikeBot && window.pvLooksLikeBot()) { done(); return; }
-    if (!window.pvIntake) { btn.disabled = false; alert('Something went wrong. Please try again, or call us at (888) 534-0117.'); return; }
+    if (!window.pvIntake) { btn.disabled = false; alert('Something went wrong. Please try again, or call us: DFW (469) 844-0470, Austin (512) 270-2452, San Antonio (210) 791-8161.'); return; }
     window.pvIntake({
       form_type: 'checkin', source: 'customer_checkin',
       business_name: (bizName || (sysId ? 'System ' + sysId : '(check-in, no business name)')).slice(0, 200),
@@ -1520,7 +1520,7 @@ import SpamGuard from '../../components/SpamGuard.astro';
       }
     }).then(function (r) {
       if (r && r.ok) { done(); }
-      else { btn.disabled = false; alert('Something went wrong. Please try again, or call us at (888) 534-0117.'); }
+      else { btn.disabled = false; alert('Something went wrong. Please try again, or call us: DFW (469) 844-0470, Austin (512) 270-2452, San Antonio (210) 791-8161.'); }
     });
   });
 </script>
