@@ -1,6 +1,6 @@
 ---
 title: "PFAS in Texas Tap Water: What Businesses Should Know"
-description: "What PFAS "forever chemicals" are, where they have turned up in Dallas, Austin and San Antonio water, and how reverse osmosis removes them at work."
+description: "What PFAS (forever chemicals) are, where they have turned up in Dallas, Austin and San Antonio water, and how reverse osmosis removes them at work."
 date: 2026-03-05
 author: "PureVida Water Technologies"
 category: "water-quality"
