@@ -76,7 +76,7 @@ There's nothing for you to manage, maintain, or troubleshoot on your end.
 
 ## How Much Does Bottle-less Water Service Cost?
 
-Our systems range from **$54 to $309 per month** depending on what you need, plus a one-time **$99 installation fee**. We offer price-protection term commitments that lock your rate in for as short as 12 months or as long as 60 months.
+Our systems range from **roughly $54 to $509 per month** depending on what you need, plus a one-time **$99 installation fee**. We offer price-protection term commitments that lock your rate in for as short as 12 months or as long as 60 months.
 
 Most businesses that switch from [bottled water delivery](/blog/bottleless-vs-bottled-water) save **30% to 80%** from the day they make the change.
 

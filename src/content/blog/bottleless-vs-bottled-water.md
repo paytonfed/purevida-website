@@ -67,7 +67,7 @@ At an average office manager salary of $50,000/year ($25/hour), that's approxima
 PureVida Water Technologies offers a simple subscription model for businesses in [Dallas-Fort Worth](/locations/dallas), [Austin](/locations/austin), and [San Antonio](/locations/san-antonio):
 
 - **Flat monthly rate**: $75-150 per unit (includes everything—see below)
-- **Installation**: Typically included in first month or one-time fee of $200-400
+- **Installation**: one-time fee (PureVida: $99)
 - **No per-gallon charges**: Unlimited filtered water
 - **No delivery fees**: Ever
 - **No surprise costs**: Your monthly rate includes all maintenance and filter replacements
@@ -119,13 +119,13 @@ Here's what the numbers actually look like for a typical 30-person office in Tex
 | **Equipment Rental** | $10-15/month | Included |
 | **Emergency/Extra Deliveries** | $40-80/month (occasional) | $0 |
 | **Annual Price Increases** | 5-8% | 2-3% (typically) |
-| **Installation/Setup** | $0 | $200-400 (one-time) |
+| **Installation/Setup** | $0 | $99 (one-time, PureVida) |
 | **Maintenance & Filters** | Included with rental | Included in monthly rate |
 | **Storage Space Cost** | $130/month (40 sq ft @ $40/sq ft) | $0 |
 | **Staff Time** | $100-125/month | $10-15/month (minimal) |
 | **Average Monthly Total** | $410-545 | $105-150 |
-| **3-Year Total Cost** | $14,760-19,620 | $4,080-5,600 |
-| **3-Year Savings with Bottle-less** | — | **$10,680-14,020** |
+| **3-Year Total Cost** | $14,760-19,620 | $3,880-5,500 |
+| **3-Year Savings with Bottle-less** | — | **$10,880-14,120** |
 
 These numbers assume modest consumption and don't include the occasional spikes in summer months when Texas heat drives water consumption up significantly. Many Dallas and San Antonio businesses see bottled water costs increase 20-30% during June-September.
 

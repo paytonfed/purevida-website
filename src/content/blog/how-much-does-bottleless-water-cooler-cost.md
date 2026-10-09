@@ -15,7 +15,7 @@ At PureVida Water Technologies, we work with businesses across [Dallas](/locatio
 
 ## What Does a Bottle-less Water Cooler Cost Per Month?
 
-The short answer: PureVida systems run $54 to $509 per month, depending on the system: water-only coolers start at $54, ice and water systems cost more, and our top PV-IMwB Platinum system is $509. There is also a one-time $99 installation fee.
+The short answer: PureVida systems run roughly $54 to $509 per month, depending on the system. Water-only coolers sit at the low end, ice and water systems in the middle, and our largest ice and water systems at the top. There is also a one-time $99 installation fee.
 
 Unlike bottled water delivery where you pay per jug (and those costs add up fast), bottle-less systems work on a flat monthly subscription. That means unlimited filtered water for one predictable price—no surprise invoices when your team drinks more during summer months.
 
@@ -66,10 +66,10 @@ Let's run the math on a real scenario: a 25-person office in Dallas.
 - Annual total: $1,080-1,920
 
 **Bottle-less Water Cooler:**
-- Monthly flat rate: $75-110
-- Annual total: $900-1,320
+- Monthly flat rate: roughly $55-160, depending on the system
+- Annual total: roughly $650-1,900
 
-That's a savings of $180-600 per year for a small office. Scale that to 50+ employees, and the gap widens dramatically.
+That's the same or less than bottled delivery for many offices, before you count the hidden costs below. Scale that to 50+ employees, and the gap widens.
 
 But the real savings goes beyond the invoice. Consider the hidden costs of bottled delivery:
 
@@ -89,22 +89,22 @@ Every business is different, but here's how pricing typically breaks down across
 
 | Business Size | Employees | Typical Monthly Cost | Annual Savings vs. Bottled |
 |--------------|-----------|---------------------|---------------------------|
-| Small Office | 5-15 | $50-85/month | $200-400/year |
-| Medium Office | 15-40 | $75-120/month | $400-800/year |
-| Large Office | 40-100+ | $100-150/month | $800-2,000+/year |
+| Small Office | 5-15 | ~$55-75/month | $200-400/year |
+| Medium Office | 15-40 | ~$75-160/month | $400-800/year |
+| Large Office | 40-100+ | ~$160+/month or multiple units | $800-2,000+/year |
 | Multi-Location | Varies | Custom pricing | 30-50%+ reduction |
 
 **Small Offices (5-15 Employees)**
 
-A countertop or compact floor-standing unit works perfectly. You'll likely land in the $50-85/month range. Even at this size, you'll save compared to bottled delivery once consumption exceeds 10-12 bottles monthly (which most offices hit easily).
+A countertop or compact floor-standing unit works perfectly. You'll likely land in the roughly $55-75/month range. Even at this size, you'll save compared to bottled delivery once consumption exceeds 10-12 bottles monthly (which most offices hit easily).
 
 **Medium Offices (15-40 Employees)**
 
-This is the sweet spot for bottle-less ROI. A quality floor-standing unit with hot/cold dispensing typically runs $75-120/month. With 15-40 people drinking throughout the day, you'd be ordering 20-35 bottles monthly with traditional delivery—that's $120-280/month. Bottle-less cuts that by 30-50%.
+This is the sweet spot for bottle-less ROI. A quality floor-standing unit with hot/cold dispensing typically runs roughly $75-160/month. With 15-40 people drinking throughout the day, you'd be ordering 20-35 bottles monthly with traditional delivery—that's $120-280/month. Bottle-less cuts that by 30-50%.
 
 **Large Offices (40-100+ Employees)**
 
-At this scale, the savings become dramatic. A high-capacity system might cost $100-150/month, while bottled delivery for 100 people could easily hit $300-500/month or more. Many large Texas businesses install multiple bottle-less units (break room, conference room, warehouse) and still pay less than bottled delivery for a single location.
+At this scale, the savings become dramatic. A high-capacity system might run roughly $160/month and up, while bottled delivery for 100 people could easily hit $300-500/month or more. Many large Texas businesses install multiple bottle-less units (break room, conference room, warehouse) and still pay less than bottled delivery for a single location.
 
 **Multi-Location Businesses**
 
@@ -146,11 +146,11 @@ For businesses with 10+ employees, bottle-less is almost always the most cost-ef
 
 Many Texas businesses bundle bottle-less water coolers with [ice machines](/products/ice-machines) and [coffee systems](/products/coffee-systems) for even better pricing.
 
-**Ice Machines**: Commercial ice makers on the same subscription model run $80-150/month depending on production capacity (50-500 lbs/day). Bundling water + ice typically saves 10-15% over separate contracts.
+**Ice Machines**: Ice and water systems on the same subscription model run roughly $120-510/month depending on production capacity. Many offices get water and ice from one combined system.
 
-**Coffee Systems**: High-end bean-to-cup or single-serve systems range from $100-200/month, including equipment, maintenance, and often coffee supply. Pair this with filtered water from your bottle-less cooler, and your break room is fully equipped.
+**Coffee Systems**: Bean-to-cup coffee systems start around $235/month, including equipment and maintenance (you choose and buy your own beans). Pair this with filtered water from your bottle-less cooler, and your break room is fully equipped.
 
-**Full Break Room Solutions**: Water + ice + coffee bundles often fall in the $200-350/month range—less than most businesses spend on coffee delivery alone, and it includes premium equipment and unlimited service.
+**Full Break Room Solutions**: Water, ice and coffee from one provider, on one predictable monthly payment, with premium equipment and full service included.
 
 The flat-rate model extends across all equipment, which means predictable budgeting and one vendor managing your entire break room. No coordinating between bottled water, ice delivery, and coffee suppliers.
 

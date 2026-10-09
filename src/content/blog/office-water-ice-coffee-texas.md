@@ -48,7 +48,7 @@ PureVida's Replacement Guarantee: "If it breaks, PureVida fixes it. If PureVida 
 
 ## And — Yes — It's Affordable
 
-Most businesses spending on bottled water see an immediate cost savings, with up to 60% savings possible. PureVida's full-service rentals run from as low as $54 a month to $309 a month based on what you need. The cost savings can be your secret.
+Most businesses spending on bottled water see an immediate cost savings, with up to 60% savings possible. PureVida's full-service rentals run from as low as $54 a month to roughly $509 a month based on what you need. The cost savings can be your secret.
 
 ## Why Texas Offices Trust PureVida
 
