@@ -20,6 +20,27 @@
     var c = (new URLSearchParams(location.search).get('promo') || '').trim().toUpperCase();
     return /^PURE-[A-Z]{2,4}$/.test(c) ? c : null;
   }
+  // First-touch attribution (Payton 10/9: know where every trial/won deal came from). Ads land on one page and the
+  // form is often on another, so keep the first ad/campaign touch for 90 days and attach it to every submission.
+  var ATTR_KEYS = ['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+  function readAttr() { try { var a = JSON.parse(localStorage.getItem('pv_attr') || 'null'); return a && a.exp > Date.now() ? a : null; } catch (e) { return null; } }
+  (function captureAttr() {
+    try {
+      var q = new URLSearchParams(location.search), hit = {}, any = false;
+      ATTR_KEYS.forEach(function (k) { var v = q.get(k); if (v) { hit[k] = v.slice(0, 150); any = true; } });
+      var ref = (document.referrer || '').slice(0, 200), sameSite = ref.indexOf(location.host) !== -1;
+      var cur = readAttr();
+      if (any || (!cur && ref && !sameSite)) {
+        if (cur && !any) return;                       // keep the first outside touch
+        hit.landing = location.pathname.slice(0, 120); hit.referrer = sameSite ? '' : ref; hit.at = new Date().toISOString();
+        hit.channel = (hit.gclid || hit.gbraid || hit.wbraid || /cpc|paid|ppc/i.test(hit.utm_medium || '')) ? 'google_ads'
+                    : hit.utm_source ? ('utm:' + hit.utm_source)
+                    : /google\./i.test(ref) ? 'google_search' : /bing\.|duckduckgo|yahoo\./i.test(ref) ? 'other_search' : ref ? 'referral_site' : 'direct';
+        hit.exp = Date.now() + 90 * 864e5;
+        localStorage.setItem('pv_attr', JSON.stringify(hit));
+      }
+    } catch (e) {}
+  })();
   window.pvIntake = function (p) {
     try {
       var code = (p.promo_code || urlPromo() || '').toUpperCase() || null;
@@ -27,6 +48,8 @@
       p.promo_code = code; p.visit_id = vid; p.page = location.pathname.slice(0, 120); p.device = device();
       var q = new URLSearchParams(location.search); p.extra = p.extra || {};
       ['utm_source', 'utm_medium', 'utm_campaign', 'gclid'].forEach(function (k) { if (q.get(k)) p.extra[k] = q.get(k).slice(0, 120); });
+      var a = readAttr(); if (a) { p.extra.first_touch = { channel: a.channel, landing: a.landing, referrer: a.referrer, at: a.at };
+        ATTR_KEYS.forEach(function (k) { if (a[k] && !p.extra[k]) p.extra[k] = a[k]; }); }
       return realFetch(INTAKE, { method: 'POST', keepalive: true,
         headers: { 'Content-Type': 'application/json', 'apikey': KEY },
         body: JSON.stringify({ p: p }) })
