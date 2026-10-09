@@ -20,6 +20,30 @@
     var c = (new URLSearchParams(location.search).get('promo') || '').trim().toUpperCase();
     return /^PURE-[A-Z]{2,4}$/.test(c) ? c : null;
   }
+  // Payton 10/9: rep / tech / FoxFlyer QR codes now land on the home page (?qr=rep|tech|foxflyer&promo=PURE-XX).
+  // Keep the rep/tech credit: log the scan here and remember the promo code for 90 days so any later form submit carries it.
+  function storedPromo() { try { var s = JSON.parse(localStorage.getItem('pv_promo') || 'null'); return s && s.exp > Date.now() ? s : null; } catch (e) { return null; } }
+  (function qrLanding() {
+    try {
+      var code = urlPromo(); if (!code) return;
+      var landing = (new URLSearchParams(location.search).get('qr') || '').toLowerCase();
+      if (['rep', 'tech', 'foxflyer'].indexOf(landing) === -1) landing = null;
+      var key = 'pv_scan_' + code, vid = null;
+      try { vid = sessionStorage.getItem(key); } catch (e) {}
+      if (!vid) {
+        vid = (Math.random().toString(36).slice(2) + Date.now().toString(36)).replace(/[^a-z0-9]/g, '').slice(0, 24);
+        try { sessionStorage.setItem(key, vid); } catch (e) {}
+        if (landing) {
+          var ref = ''; try { ref = document.referrer ? new URL(document.referrer).hostname : ''; } catch (e) {}
+          fetch('https://afgaboesfuozjhglreyg.supabase.co/rest/v1/rpc/log_qr_scan', { method: 'POST', keepalive: true,
+            headers: { 'Content-Type': 'application/json', 'apikey': KEY },
+            body: JSON.stringify({ p_code: code, p_landing: landing, p_device: device(), p_page: location.pathname.slice(0, 80), p_referrer_host: ref || null, p_visit_id: vid })
+          }).catch(function () {});
+        }
+      }
+      try { localStorage.setItem('pv_promo', JSON.stringify({ code: code, landing: landing, vid: vid, exp: Date.now() + 90 * 864e5 })); } catch (e) {}
+    } catch (e) {}
+  })();
   // First-touch attribution (Payton 10/9: know where every trial/won deal came from). Ads land on one page and the
   // form is often on another, so keep the first ad/campaign touch for 90 days and attach it to every submission.
   var ATTR_KEYS = ['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
@@ -43,8 +67,10 @@
   })();
   window.pvIntake = function (p) {
     try {
-      var code = (p.promo_code || urlPromo() || '').toUpperCase() || null;
-      var vid = null; if (code) { try { vid = sessionStorage.getItem('pv_scan_' + code); } catch (e) {} }
+      var sp = storedPromo();
+      var code = (p.promo_code || urlPromo() || (sp && sp.code) || '').toUpperCase() || null;
+      var vid = null; if (code) { try { vid = sessionStorage.getItem('pv_scan_' + code); } catch (e) {} if (!vid && sp && sp.code === code) vid = sp.vid || null; }
+      if (sp && sp.landing) { p.extra = p.extra || {}; p.extra.qr_landing = sp.landing; }
       p.promo_code = code; p.visit_id = vid; p.page = location.pathname.slice(0, 120); p.device = device();
       var q = new URLSearchParams(location.search); p.extra = p.extra || {};
       ['utm_source', 'utm_medium', 'utm_campaign', 'gclid'].forEach(function (k) { if (q.get(k)) p.extra[k] = q.get(k).slice(0, 120); });
