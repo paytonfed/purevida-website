@@ -15,25 +15,43 @@ const products = [
   {
     id: "pv12c",
     name: "PV12c",
-    subtitle: "Coffee & Beverage",
+    subtitle: "Coffee & Beverage · two bean options + decaf",
     image: "/images/products/PV12c.png",
     featured: true,
     specs: [
-      { label: "Form", value: "Countertop or Freestanding" },
+      { label: "Form", value: "Countertop or Freestanding | Optional base cabinet" },
       { label: "Functionality", value: "Bean to Cup, Single Serve, Coffee, Chocolate, Vanilla, Milktopping" },
-      { label: "Dimensions", value: "35\"H (39.9\"H with bean canisters) x 16.8\"W x 23.2\"D | Optional base cabinet" },
-      { label: "Storage", value: "5 lbs. Coffee Bean Canister 1 | 5 lbs. Coffee Bean Canister 2" },
-      { label: "Dispense Height", value: "7\"" },
+      { label: "Bean Canisters", value: "(2) Whole Bean Canisters for a Dark & Light Roast option" },
+      { label: "Powder Canisters", value: "(3) Vanilla, Chocolate, Milktopping" },
+      { label: "Decaf", value: "Ground Decaf Coffee option" },
+      { label: "Capacity", value: "Larger bean and powder canisters than the PV11c" },
+      { label: "Dimensions", value: "35\"H (39.9\"H with bean canisters) x 17\"W x 23.5\"D" },
       { label: "Weight", value: "90 – 115 lbs." },
       { label: "Screen", value: "10.1\" HD touchscreen" },
       { label: "Recommended Usage", value: "Less than 30 Drinkers per System" },
+    ],
+  },
+  {
+    id: "pv11c",
+    name: "PV11c",
+    subtitle: "Coffee & Beverage · compact",
+    image: "/images/products/PV11c.png",
+    featured: false,
+    specs: [
+      { label: "Form", value: "Countertop or Freestanding | Optional base cabinet" },
+      { label: "Functionality", value: "Bean to Cup, Single Serve, Coffee, Chocolate, Vanilla, Milktopping" },
+      { label: "Bean Canister", value: "(1) Whole Bean Canister" },
+      { label: "Powder Canisters", value: "(3) Vanilla, Chocolate, Milktopping" },
+      { label: "Dimensions", value: "31.5\"H (33.9\"H with bean canister) x 14.3\"W x 21\"D" },
+      { label: "Weight", value: "70 – 86 lbs." },
+      { label: "Screen", value: "10.1\" HD touchscreen" },
     ],
   }
 ];
 ---
 
 <Layout
-  title="Office Coffee Systems — Bean to Cup"
+  title="Office Coffee Systems — Bean to Cup (PV11c & PV12c)"
   description="Commercial coffee machines for Texas businesses. Bean-to-cup freshness with touchscreen operation. Free, no-obligation trial. Full service included."
 >
   <script type="application/ld+json" set:html={breadcrumbSchema} />
@@ -42,9 +60,9 @@ const products = [
   <section class="bg-gradient-to-br from-sky-50 to-white py-6 lg:py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto">
-        <h1 class="text-4xl lg:text-5xl font-bold text-gray-900">Office Coffee System</h1>
+        <h1 class="text-4xl lg:text-5xl font-bold text-gray-900">Office Coffee Systems</h1>
         <p class="mt-4 text-xl text-gray-600">
-          Café-quality coffee in your breakroom. Bean-to-cup freshness, zero effort.
+          Café-quality coffee in your breakroom. Bean-to-cup freshness, hot chocolate and lattes, with the coffee brand you love and the same PureVida service.
         </p>
       </div>
     </div>
@@ -54,7 +72,7 @@ const products = [
   <section class="py-12 bg-white">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       {products.map((product) => (
-        <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div id={product.id} class="grid md:grid-cols-2 gap-12 items-center mb-16 last:mb-0 scroll-mt-24">
           <!-- Image -->
           <div class="flex justify-center">
             <div class="w-[280px] h-[450px] flex items-center justify-center">
